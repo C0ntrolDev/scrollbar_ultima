@@ -125,9 +125,20 @@ Widget _buildItem(BuildContext context, int index) {
 - 🖥️ **Various Screen Positions** - Place scrollbars at different positions on the screen.
 - 🧩 **Seamless Integration with CustomScrollView** - Easily work with CustomScrollView for advanced scrolling effects.
 
-## Basic docs
+## Features docs
 
-TODO
+| Property                          | Default value           | Description                                                                                                                                                                                                                                                                        |
+| --------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| thumbBuilder                      | default thumb           | Сustom builder for the Thumb. `animation` indicates how much the Thumb is currently shown/hidden. `widgetStates` represents the current state of the Thumb                                                                                                                         |
+| labelBuilder                      | null                    | Сustom builder for the Label. `animation` indicates how much the Label is currently shown/hidden. `widgetStates` represents the current state of the Thumb. `offset` is the offset of the scrollController. `precalculatedIndex` indicates the estimated index of the current item |
+| trackBuilder                      | null                    | Custom builder for the Track. `animation` indicates how much the Track is currently shown/hidden. `widgetStates` represents the current state of the Thumb                                                                                                                         |
+| **isFixedScroll**                 | false                   | Special scroll mode. Performs non-linear scrolling, jumping between elements<br>This can be very useful in large lists where lags during Thumb movement are inevitable, as items will replace each other in fixed positions, and the lags will not be visible                      |
+| **precalculateItemByOffset**      | false                   | hould the item index pre-calculate for display or use in labelBuilder                                                                                                                                                                                                              |
+| **scrollbarPosition**             | ScrollbarPosition.Right | The position of ScrollbarUltima on the screen. Can be used for horizontal scroll!                                                                                                                                                                                                  |
+| minScrollOffset & maxScrollOffset | null                    | Allow you to specify a range on what thumb moving                                                                                                                                                                                                                                  |
+| dynamicThumbLength                | true                    | Should the Thumb length depend on the available scroll area and screen size                                                                                                                                                                                                        |
+
+More docs can be found in **class description!**
 
 ## Additional information
 

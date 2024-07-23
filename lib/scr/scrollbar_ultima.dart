@@ -11,8 +11,14 @@ import 'package:scrollbar_ultima/scr/scrollbars_builders.dart';
 import 'package:scrollbar_ultima/scr/show_hide_animated.dart';
 import 'package:scrollbar_ultima/scr/show_hide_animated_controller.dart';
 
+/// A powerful Scrollbar that allows you to customize everything to your needs!
 class ScrollbarUltima extends StatefulWidget {
+  /// Any widget
   final Widget child;
+
+  /// Used to get and modify scroll information
+  ///
+  /// By default, [PrimaryScrollController].of(context) is used
   final ScrollController? controller;
 
   late final Widget Function(BuildContext context, Animation<double> animation, Set<WidgetState> widgetStates)
@@ -20,52 +26,114 @@ class ScrollbarUltima extends StatefulWidget {
   Widget Function(BuildContext context, Animation<double> animation, Set<WidgetState> widgetStates) get thumbBuilder =>
       _thumbBuilder;
 
+  /// Custom builder for the Track. `animation` indicates how much the Track is currently shown/hidden. `widgetStates` represents the current state of the Thumb, which can be pressed, dragged, or hovered (PC only)
   final Widget Function(BuildContext context, Animation<double> animation, Set<WidgetState> widgetStates)?
       trackBuilder;
 
   late final Widget Function(BuildContext context, Animation<double> animation, Set<WidgetState> widgetStates,
       double offset, int? precalculatedIndex)? _labelBuilder;
-  Widget Function(BuildContext context, Animation<double> animation, Set<WidgetState> widgetState, double offset,
+  Widget Function(BuildContext context, Animation<double> animation, Set<WidgetState> widgetStates, double offset,
       int? precalculatedIndex)? get labelBuilder => _labelBuilder;
 
+  /// The position of ScrollbarUltima on the screen
   final ScrollbarPosition scrollbarPosition;
 
+  /// Padding for the entire Scrollbar (Thumb, Label, Track)
   final EdgeInsets scrollbarPadding;
 
+  /// Animation curve for showing and hiding
   final Curve animationCurve;
+
+  /// Duration of the animation for showing and hiding
   final Duration animationDuration;
 
+  /// The duration before the Thumb hides
   final Duration durationBeforeHide;
 
+  /// Length of the Scrollbar. By default, it occupies all available space
   final double? scrollbarLength;
+
+  /// The offset from which the Thumb starts moving, and the minimum offset to which it can be dragged
+  ///
+  /// Can be used in [CustomScrollView] with [SliverAppBar], so the Thumb starts moving only after the AppBar is out of the user's view. An example can be seen in customized_example
   final double? minScrollOffset;
+
+  /// The maximum offset to which the Thumb continues to move, and the maximum offset to which it can be dragged
   final double? maxScrollOffset;
+
+  /// Same as [maxScrollOffset], but allows specifying it from the end
+  ///
+  /// Calculated as: scrollController.position.maxScrollExtent - [maxScrollOfssetFromEnd]
   final double? maxScrollOfssetFromEnd;
 
+  /// Should the Thumb automatically hide when the user scrolls beyond [minScrollOffset] or [maxScrollOffset]
   final bool hideThumbWhenOutOfOffset;
+
+  /// Should the Thumb always be shown
   final bool alwaysShowThumb;
+
+  /// Сan the Thumb be dragged
   final bool isDraggable;
 
+  /// Should the Thumb length depend on the available scroll area and screen size
   final bool dynamicThumbLength;
+
+  /// Minimum length of the Thumb. Useful when the scrollable area is too large, making the Thumb too small
+  ///
+  /// Also used as the default height for the Thumb
   final double? minDynamicThumbLength;
+
+  /// Maximum length of the Thumb
   final double? maxDynamicThumbLength;
 
+  /// When the Label should be shown or hidden
   final LabelBehaviour labelBehaviour;
+
+  /// Should Label be center by the Thumb.
+  ///
+  /// Due to calculation specifics, the Label length lags by 1 frame, so frequent and sharp changes in its length are not recommended (small length changes are almost unnoticeable). Otherwise, the Label may shift slightly to the side
   final bool centerLabelByThumb;
+
+  /// The offset of the top edge of the Label relative to the top edge of the Thumb, used only if [centerLabelByThumb] == false
   final double labelOffset;
 
+  /// When the Track should be shown or hidden
   final TrackBehavior trackBehavior;
+
+  /// Should the Thumb move to the click position on the Track
+  ///
+  /// This behavior is often expected by PC users. For its use, [trackBuilder] must be specified
   final bool moveThumbOnTrackClick;
 
+  /// Special scroll mode. Performs non-linear scrolling, jumping between elements
+  ///
+  /// This can be very useful in large lists where lags during Thumb movement are inevitable, as items will replace each other in fixed positions, and the lags will not be visible
   final bool isFixedScroll;
+
+  /// Extend of item. Needed for [precalculateItemByOffset] and [isFixedScroll]. Alternative - [prototypeItem]
   final double? itemExtend;
+
+  /// Allows calculating [itemExtend] based on the length of the given widget. Needed for [precalculateItemByOffset] and [isFixedScroll]. Alternative - [itemExtend]
   final Widget? prototypeItem;
 
+  /// Should the item index pre-calculate for display or use in labelBuilder
+  ///
+  /// Usage can be seen in customized_example
   final bool precalculateItemByOffset;
+
+  /// Offset for pre-calculating the item index.
+  ///
+  /// Pre-calculation occurs independently of [minScrollOffset], so often the offset will be equal to [minScrollOffset]
   final double itemPrecalculationOffset;
 
+  /// Background color for Label and Thumb surfaces
   final Color backgroundColor;
 
+  /// Creates the default Thumb without a Label, but also allows specifying their builders
+  ///
+  /// [thumbBuilder] allows specifying a custom builder for the Thumb. `animation` indicates how much the Thumb is currently shown/hidden. `widgetStates` represents the current state of the Thumb, which can be pressed, dragged, or hovered (PC only).
+  /// 
+  /// [labelBuilder] allows specifying a custom builder for the Label. `animation` indicates how much the Label is currently shown/hidden. `widgetStates` represents the current state of the Thumb, which can be pressed, dragged, or hovered (PC only). `offset` is the offset of the scrollController. `precalculatedIndex` is not null only if [precalculateItemByOffset] is true, and indicates the estimated index of the current item. If the scroll is beyond [minScrollOffset], it equals -1.
   ScrollbarUltima(
       {super.key,
       required this.child,
@@ -109,11 +177,22 @@ class ScrollbarUltima extends StatefulWidget {
     checkAsserts();
   }
 
+  /// Creates a Semicircle Thumb with a rounded Label. You can specify a builder for the Label content
+  ///
+  /// Similar to the one in DraggableScrollbar
+  /// 
+  /// [labelContentBuilder] - builder for the label content. `offset` is the offset of the scrollController. `precalculatedIndex` is not null only if [precalculateItemByOffset] is true, and indicates the estimated index of the current item. If the scroll is beyond [minScrollOffset], it equals -1.
+  /// 
+  /// [thumbMainAxisSize] - length of the Thumb
+  /// [thumbCrossAxisSize] - thickness of the Thumb
+  /// [labelSidePadding] - distance between the Label and the screen edge to which the Scrollbar is attached
+  /// [elevation] - shadow for the Thumb and Label
+  /// [arrowsColor] - color of the icon on the Thumb
   ScrollbarUltima.semicircle(
       {super.key,
       required this.child,
       this.controller,
-      Widget Function(double offset, int? index)? labelContentBuilder,
+      Widget Function(double offset, int? precalculatedIndex)? labelContentBuilder,
       double thumbMainAxisSize = 48,
       double thumbCrossAxisSize = 48 / 6 * 5,
       double labelSidePadding = 20,
@@ -601,7 +680,7 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
                                     child: Builder(builder: (context) {
                                       if (defaultTargetPlatform == TargetPlatform.android ||
                                           defaultTargetPlatform == TargetPlatform.iOS) {
-                                          return thumb;
+                                        return thumb;
                                       }
 
                                       return MouseRegion(
