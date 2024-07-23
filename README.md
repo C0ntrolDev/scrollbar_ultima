@@ -125,7 +125,7 @@ Widget _buildItem(BuildContext context, int index) {
 - 🖥️ **Various Screen Positions** - Place scrollbars at different positions on the screen.
 - 🧩 **Seamless Integration with CustomScrollView** - Easily work with CustomScrollView for advanced scrolling effects.
 
-## Features docs
+## Core Features docs
 
 | Property                          | Default value           | Description                                                                                                                                                                                                                                                                        |
 | --------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
