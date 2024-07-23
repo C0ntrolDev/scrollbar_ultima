@@ -14,22 +14,31 @@ class SemicircleExampleApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 0, 98)),
           useMaterial3: true,
         ),
-        home: Scaffold(
-          appBar: AppBar(title: const Center(child: Text("Semicircle Example"))),
-          body: SafeArea(
-            child: ScrollbarUltima.semicircle(
-              labelContentBuilder: (offset, index) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
-                  child: Text(
-                    index.toString(),
-                    style: const TextStyle(color: Colors.grey),
-                  )),
-              precalculateItemByOffset: true,
-              prototypeItem: _buildItem(context, 0),
-              child: ListView.builder(itemCount: 100, itemBuilder: _buildItem),
-            ),
-          ),
-        ));
+        home: const SemicircleExampleApp());
+  }
+}
+
+class SemicircleExampleMainScreen extends StatelessWidget {
+  const SemicircleExampleMainScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Center(child: Text("Semicircle Example"))),
+      body: SafeArea(
+        child: ScrollbarUltima.semicircle(
+          labelContentBuilder: (offset, index) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+              child: Text(
+                index.toString(),
+                style: const TextStyle(color: Colors.grey),
+              )),
+          precalculateItemByOffset: true,
+          prototypeItem: _buildItem(context, 0),
+          child: ListView.builder(itemCount: 100, itemBuilder: _buildItem),
+        ),
+      ),
+    );
   }
 
   Widget _buildItem(BuildContext context, int index) {

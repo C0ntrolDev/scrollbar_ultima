@@ -14,14 +14,25 @@ class DeffaultExampleApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 0, 98)),
           useMaterial3: true,
         ),
-        home: Scaffold(
-          appBar: AppBar(title: const Center(child: Text("Deffault Example"))),
-          body: SafeArea(
-            child: ScrollbarUltima(
-              child: ListView.builder(itemCount: 100, itemBuilder: _buildItem),
-            ),
-          ),
-        ));
+        home: const DefaultExampleMainScreen());
+  }
+}
+
+class DefaultExampleMainScreen extends StatelessWidget {
+  const DefaultExampleMainScreen({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Center(child: Text("Default Example"))),
+      body: SafeArea(
+        child: ScrollbarUltima(
+          child: ListView.builder(itemCount: 100, itemBuilder: _buildItem),
+        ),
+      ),
+    );
   }
 
   Widget _buildItem(BuildContext context, int index) {
