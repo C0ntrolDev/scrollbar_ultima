@@ -9,7 +9,7 @@ Powerful Flutter package that allows you to create highly customizable scrollbar
 
 ### Default
 
-<img src="https://github.com/C0ntrolDev/scrollbar_ultima/blob/main/docs/images/default_example.gif" width="400" />
+<img src="https://github.com/C0ntrolDev/scrollbar_ultima/blob/main/docs/images/default_example.gif" width="200" />
 
 ```dart
 @override
@@ -35,7 +35,7 @@ Widget _buildItem(BuildContext context, int index) {
 
 ### Semicircle with Item index precalculation
 
-<img src="https://github.com/C0ntrolDev/scrollbar_ultima/blob/main/docs/images/semicircle_example.gif" width="400" />
+<img src="https://github.com/C0ntrolDev/scrollbar_ultima/blob/main/docs/images/semicircle_example.gif" width="200" />
 
 ```dart
 @override
@@ -69,7 +69,7 @@ Widget _buildItem(BuildContext context, int index) {
 
 ### Customized
 
-<img src="https://github.com/C0ntrolDev/scrollbar_ultima/blob/main/docs/images/customized_example.gif" width="400" />
+<img src="https://github.com/C0ntrolDev/scrollbar_ultima/blob/main/docs/images/customized_example.gif" width="200" />
 
 ```dart
 @override
