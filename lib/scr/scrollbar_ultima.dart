@@ -343,8 +343,6 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
   void didUpdateWidget(ScrollbarUltima oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    _isThumbDraggedBeforeHide = false;
-
     _updateScrollController();
     _updatePrototypeLength();
 
