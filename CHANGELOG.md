@@ -4,8 +4,12 @@
 
 ## 1.0.1
 
-- Fix GIFs displaying
+- Fixed GIFs displaying
 
 ## 1.0.2
 
-- Fix example displaying for pub.dev
+- Fixed example displaying for pub.dev
+
+## 1.0.3
+
+- Fixed label showing when widget rebuilded
