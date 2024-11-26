@@ -13,3 +13,8 @@
 ## 1.0.3
 
 - Fixed label showing when widget rebuilded
+
+## 1.0.4
+
+- Changed scr to crc
+- Formated code to pass static analysis
