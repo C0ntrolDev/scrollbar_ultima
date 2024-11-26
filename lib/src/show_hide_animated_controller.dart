@@ -1,7 +1,9 @@
 import 'dart:async';
 
 class ShowHideAnimatedController {
-  ShowHideAnimatedController({required bool Function() mustBeHidden, required Duration durationBeforePlannedHidding})
+  ShowHideAnimatedController(
+      {required bool Function() mustBeHidden,
+      required Duration durationBeforePlannedHidding})
       : _durationBeforePlannedHidding = durationBeforePlannedHidding,
         _mustBeHidden = mustBeHidden;
 
@@ -11,7 +13,8 @@ class ShowHideAnimatedController {
   Timer? _plannedUpdate;
 
   bool _isShown = false;
-  final StreamController<bool> _isShownStreamController = StreamController<bool>.broadcast();
+  final StreamController<bool> _isShownStreamController =
+      StreamController<bool>.broadcast();
 
   bool get isShown => _isShown;
   Stream<bool> get isShownStream => _isShownStreamController.stream;
@@ -20,7 +23,8 @@ class ShowHideAnimatedController {
     _plannedUpdate?.cancel();
   }
 
-  void setDurationBeforePlannedHidding(Duration newDurationBeforePlannedHidding) {
+  void setDurationBeforePlannedHidding(
+      Duration newDurationBeforePlannedHidding) {
     _durationBeforePlannedHidding = newDurationBeforePlannedHidding;
   }
 

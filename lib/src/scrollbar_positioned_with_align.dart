@@ -7,10 +7,15 @@ class ScrollbarPositionedWithAlign extends StatelessWidget {
   final double offset;
   final Widget child;
 
-  const ScrollbarPositionedWithAlign({super.key, required this.position, required this.offset, required this.child})
+  const ScrollbarPositionedWithAlign(
+      {super.key,
+      required this.position,
+      required this.offset,
+      required this.child})
       : _isFill = false;
 
-  const ScrollbarPositionedWithAlign.fill({super.key, required this.position, required this.child})
+  const ScrollbarPositionedWithAlign.fill(
+      {super.key, required this.position, required this.child})
       : _isFill = true,
         offset = 0;
 

@@ -21,18 +21,26 @@ class ScrollbarUltima extends StatefulWidget {
   /// By default, [PrimaryScrollController].of(context) is used
   final ScrollController? controller;
 
-  late final Widget Function(BuildContext context, Animation<double> animation, Set<WidgetState> widgetStates)
-      _thumbBuilder;
-  Widget Function(BuildContext context, Animation<double> animation, Set<WidgetState> widgetStates) get thumbBuilder =>
-      _thumbBuilder;
+  late final Widget Function(BuildContext context, Animation<double> animation,
+      Set<WidgetState> widgetStates) _thumbBuilder;
+  Widget Function(BuildContext context, Animation<double> animation,
+      Set<WidgetState> widgetStates) get thumbBuilder => _thumbBuilder;
 
   /// Custom builder for the Track. `animation` indicates how much the Track is currently shown/hidden. `widgetStates` represents the current state of the Thumb, which can be pressed, dragged, or hovered (PC only)
-  final Widget Function(BuildContext context, Animation<double> animation, Set<WidgetState> widgetStates)?
-      trackBuilder;
+  final Widget Function(BuildContext context, Animation<double> animation,
+      Set<WidgetState> widgetStates)? trackBuilder;
 
-  late final Widget Function(BuildContext context, Animation<double> animation, Set<WidgetState> widgetStates,
-      double offset, int? precalculatedIndex)? _labelBuilder;
-  Widget Function(BuildContext context, Animation<double> animation, Set<WidgetState> widgetStates, double offset,
+  late final Widget Function(
+      BuildContext context,
+      Animation<double> animation,
+      Set<WidgetState> widgetStates,
+      double offset,
+      int? precalculatedIndex)? _labelBuilder;
+  Widget Function(
+      BuildContext context,
+      Animation<double> animation,
+      Set<WidgetState> widgetStates,
+      double offset,
       int? precalculatedIndex)? get labelBuilder => _labelBuilder;
 
   /// The position of ScrollbarUltima on the screen
@@ -132,15 +140,21 @@ class ScrollbarUltima extends StatefulWidget {
   /// Creates the default Thumb without a Label, but also allows specifying their builders
   ///
   /// [thumbBuilder] allows specifying a custom builder for the Thumb. `animation` indicates how much the Thumb is currently shown/hidden. `widgetStates` represents the current state of the Thumb, which can be pressed, dragged, or hovered (PC only).
-  /// 
+  ///
   /// [labelBuilder] allows specifying a custom builder for the Label. `animation` indicates how much the Label is currently shown/hidden. `widgetStates` represents the current state of the Thumb, which can be pressed, dragged, or hovered (PC only). `offset` is the offset of the scrollController. `precalculatedIndex` is not null only if [precalculateItemByOffset] is true, and indicates the estimated index of the current item. If the scroll is beyond [minScrollOffset], it equals -1.
   ScrollbarUltima(
       {super.key,
       required this.child,
-      Widget Function(BuildContext context, Animation<double> animation, Set<WidgetState> widgetStates)? thumbBuilder,
+      Widget Function(BuildContext context, Animation<double> animation,
+              Set<WidgetState> widgetStates)?
+          thumbBuilder,
       this.backgroundColor = Colors.black,
       double defaultThumbThickness = 10,
-      Widget Function(BuildContext context, Animation<double> animation, Set<WidgetState> widgetStates, double offset,
+      Widget Function(
+              BuildContext context,
+              Animation<double> animation,
+              Set<WidgetState> widgetStates,
+              double offset,
               int? precalculatedIndex)?
           labelBuilder,
       this.trackBuilder,
@@ -172,17 +186,23 @@ class ScrollbarUltima extends StatefulWidget {
       this.itemPrecalculationOffset = 0}) {
     _labelBuilder = labelBuilder;
     _thumbBuilder = thumbBuilder ??
-        (context, thumbAnimation, widgetStates) => createDeffaultThumb(context, thumbAnimation, widgetStates,
-            backgroundColor, defaultThumbThickness, minDynamicThumbLength, scrollbarPosition);
+        (context, thumbAnimation, widgetStates) => createDeffaultThumb(
+            context,
+            thumbAnimation,
+            widgetStates,
+            backgroundColor,
+            defaultThumbThickness,
+            minDynamicThumbLength,
+            scrollbarPosition);
     checkAsserts();
   }
 
   /// Creates a Semicircle Thumb with a rounded Label. You can specify a builder for the Label content
   ///
   /// Similar to the one in DraggableScrollbar
-  /// 
+  ///
   /// [labelContentBuilder] - builder for the label content. `offset` is the offset of the scrollController. `precalculatedIndex` is not null only if [precalculateItemByOffset] is true, and indicates the estimated index of the current item. If the scroll is beyond [minScrollOffset], it equals -1.
-  /// 
+  ///
   /// [thumbMainAxisSize] - length of the Thumb
   /// [thumbCrossAxisSize] - thickness of the Thumb
   /// [labelSidePadding] - distance between the Label and the screen edge to which the Scrollbar is attached
@@ -192,7 +212,8 @@ class ScrollbarUltima extends StatefulWidget {
       {super.key,
       required this.child,
       this.controller,
-      Widget Function(double offset, int? precalculatedIndex)? labelContentBuilder,
+      Widget Function(double offset, int? precalculatedIndex)?
+          labelContentBuilder,
       double thumbMainAxisSize = 48,
       double thumbCrossAxisSize = 48 / 6 * 5,
       double labelSidePadding = 20,
@@ -225,49 +246,58 @@ class ScrollbarUltima extends StatefulWidget {
         minDynamicThumbLength = null,
         maxDynamicThumbLength = null,
         trackBehavior = TrackBehavior.alwaysShow {
-    _thumbBuilder = (context, thumbAnimation, widgetStates) => createSemicircleThumb(
-        context: context,
-        thumbAnimation: thumbAnimation,
-        widgetStates: widgetStates,
-        backgroundColor: backgroundColor,
-        foregroundColor: arrowsColor,
-        elevation: elevation,
-        mainAxisSize: thumbMainAxisSize,
-        crossAxisSize: thumbCrossAxisSize,
-        scrollbarPosition: scrollbarPosition);
+    _thumbBuilder = (context, thumbAnimation, widgetStates) =>
+        createSemicircleThumb(
+            context: context,
+            thumbAnimation: thumbAnimation,
+            widgetStates: widgetStates,
+            backgroundColor: backgroundColor,
+            foregroundColor: arrowsColor,
+            elevation: elevation,
+            mainAxisSize: thumbMainAxisSize,
+            crossAxisSize: thumbCrossAxisSize,
+            scrollbarPosition: scrollbarPosition);
 
     if (labelContentBuilder == null) {
       _labelBuilder = null;
     } else {
-      _labelBuilder = (context, labelAnimation, widgetStates, offset, index) => createSemicircleLabel(
-          context: context,
-          animation: labelAnimation,
-          widgetStates: widgetStates,
-          offset: offset,
-          precalculatedIndex: index,
-          backgroundColor: backgroundColor,
-          elevation: elevation,
-          thumbLength: thumbMainAxisSize,
-          labelContentBuilder: labelContentBuilder,
-          sidePadding: thumbCrossAxisSize + labelSidePadding,
-          scrollbarPosition: scrollbarPosition);
+      _labelBuilder = (context, labelAnimation, widgetStates, offset, index) =>
+          createSemicircleLabel(
+              context: context,
+              animation: labelAnimation,
+              widgetStates: widgetStates,
+              offset: offset,
+              precalculatedIndex: index,
+              backgroundColor: backgroundColor,
+              elevation: elevation,
+              thumbLength: thumbMainAxisSize,
+              labelContentBuilder: labelContentBuilder,
+              sidePadding: thumbCrossAxisSize + labelSidePadding,
+              scrollbarPosition: scrollbarPosition);
     }
 
     checkAsserts();
   }
 
   void checkAsserts() {
-    assert(((!(itemExtend != null && prototypeItem != null))), 'You must set only prototypeItem or itemExtend');
-    assert((maxScrollOffset != null && maxScrollOfssetFromEnd == null) || maxScrollOffset == null,
+    assert(((!(itemExtend != null && prototypeItem != null))),
+        'You must set only prototypeItem or itemExtend');
+    assert(
+        (maxScrollOffset != null && maxScrollOfssetFromEnd == null) ||
+            maxScrollOffset == null,
         'You must set only maxScrollOffset or maxScrollOffsetFromEnd');
     assert(
-        ((maxScrollOffset != null && minScrollOffset != null && maxScrollOffset! > minScrollOffset!) ||
+        ((maxScrollOffset != null &&
+                minScrollOffset != null &&
+                maxScrollOffset! > minScrollOffset!) ||
             maxScrollOffset == null ||
             minScrollOffset == null),
         'maxScrollOffset must be larger than minScrollOffset');
     assert(!isFixedScroll || ((itemExtend != null || prototypeItem != null)),
         'If you want to use fixedScroll, you must set prototypeItem or itemExtend');
-    assert(!precalculateItemByOffset || ((itemExtend != null || prototypeItem != null)),
+    assert(
+        !precalculateItemByOffset ||
+            ((itemExtend != null || prototypeItem != null)),
         'If you want to use precalculateItemByOffset, you must set prototypeItem or itemExtend');
   }
 
@@ -275,27 +305,32 @@ class ScrollbarUltima extends StatefulWidget {
   ScrollbarUltimaState createState() => ScrollbarUltimaState();
 }
 
-class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderStateMixin {
+class ScrollbarUltimaState extends State<ScrollbarUltima>
+    with TickerProviderStateMixin {
   ScrollController? _scrollController;
 
   bool get isVerticalScroll =>
-      widget.scrollbarPosition == ScrollbarPosition.right || widget.scrollbarPosition == ScrollbarPosition.left;
+      widget.scrollbarPosition == ScrollbarPosition.right ||
+      widget.scrollbarPosition == ScrollbarPosition.left;
 
   bool _isScrollOffsetOutOfRange = true;
 
   double get _minScrollOffset => widget.minScrollOffset ?? 0;
   double? get _maxScrollOffset => (widget.maxScrollOffset ??
       (_scrollController != null
-          ? _scrollController!.position.maxScrollExtent - (widget.maxScrollOfssetFromEnd ?? 0)
+          ? _scrollController!.position.maxScrollExtent -
+              (widget.maxScrollOfssetFromEnd ?? 0)
           : null));
 
   double _scrollbarZoneLength = 0;
 
   double _thumbLength = 0;
-  double get _thumbScrollRange => max((widget.scrollbarLength ?? _scrollbarZoneLength) - _thumbLength, 0);
+  double get _thumbScrollRange =>
+      max((widget.scrollbarLength ?? _scrollbarZoneLength) - _thumbLength, 0);
 
   double _labelLength = 0;
-  double get _labelScrollRange => max((widget.scrollbarLength ?? _scrollbarZoneLength) - _labelLength, 0);
+  double get _labelScrollRange =>
+      max((widget.scrollbarLength ?? _scrollbarZoneLength) - _labelLength, 0);
 
   final GlobalKey _prototypeItemKey = GlobalKey();
   double? _fixedItemLength;
@@ -316,20 +351,25 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
   bool _isThumbDraggedBeforeHide = false;
   bool _isDragging = false;
 
-  final StreamController<double> _actualScrollViewOffsetStreamController = StreamController.broadcast();
+  final StreamController<double> _actualScrollViewOffsetStreamController =
+      StreamController.broadcast();
 
   @override
   void initState() {
     super.initState();
 
     _thumbController = ShowHideAnimatedController(
-        mustBeHidden: _thumbMustBeHidden, durationBeforePlannedHidding: widget.durationBeforeHide);
+        mustBeHidden: _thumbMustBeHidden,
+        durationBeforePlannedHidding: widget.durationBeforeHide);
     _labelController = ShowHideAnimatedController(
-        mustBeHidden: _labelMustBeHidden, durationBeforePlannedHidding: widget.durationBeforeHide);
+        mustBeHidden: _labelMustBeHidden,
+        durationBeforePlannedHidding: widget.durationBeforeHide);
     _trackController = ShowHideAnimatedController(
-        mustBeHidden: _trackMustBeHidden, durationBeforePlannedHidding: widget.durationBeforeHide);
+        mustBeHidden: _trackMustBeHidden,
+        durationBeforePlannedHidding: widget.durationBeforeHide);
 
-    _thumbIsShownSubscription = _thumbController.isShownStream.listen(_onThumbShownChanged);
+    _thumbIsShownSubscription =
+        _thumbController.isShownStream.listen(_onThumbShownChanged);
 
     _updateScrollController();
     _updatePrototypeLength();
@@ -376,16 +416,19 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
   void _updateScrollController() {
     if (_scrollController != null) {
       _scrollController!.removeListener(_onScroll);
-      _scrollController!.position.isScrollingNotifier.removeListener(_onScrollStatusChanged);
+      _scrollController!.position.isScrollingNotifier
+          .removeListener(_onScrollStatusChanged);
     }
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      _scrollController = widget.controller ?? PrimaryScrollController.of(context);
+      _scrollController =
+          widget.controller ?? PrimaryScrollController.of(context);
       _scrollController!.addListener(_onScroll);
 
       assert(_scrollController!.positions.isNotEmpty,
           'The ScrollController is not attached to any scroll views. This may happen for several reasons, including: you did not set the ScrollController in any ScrollViews, or if you are using Windows and did not set the ScrollController in your ScrollView, you need to set the primary field in your ScrollView to true. https://docs.flutter.dev/release/breaking-changes/primary-scroll-controller-desktop');
-      _scrollController!.position.isScrollingNotifier.addListener(_onScrollStatusChanged);
+      _scrollController!.position.isScrollingNotifier
+          .addListener(_onScrollStatusChanged);
 
       setState(() {});
     });
@@ -396,8 +439,11 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
       _fixedItemLength = widget.itemExtend;
     } else {
       SchedulerBinding.instance.addPostFrameCallback((duration) {
-        final renderBoxSize = (_prototypeItemKey.currentContext?.findRenderObject() as RenderBox?)?.size;
-        _fixedItemLength = isVerticalScroll ? renderBoxSize?.height : renderBoxSize?.width;
+        final renderBoxSize =
+            (_prototypeItemKey.currentContext?.findRenderObject() as RenderBox?)
+                ?.size;
+        _fixedItemLength =
+            isVerticalScroll ? renderBoxSize?.height : renderBoxSize?.width;
       });
     }
   }
@@ -417,8 +463,10 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
   void _onActualScrollViewOffsetChanged(double newActualScrollViewOffset) {
     if (!isScrollbarInValidState()) return;
 
-    final relativeScrollbarOffset = newActualScrollViewOffset - _minScrollOffset;
-    _isScrollOffsetOutOfRange = relativeScrollbarOffset < 0 || relativeScrollbarOffset > _maxScrollOffset!;
+    final relativeScrollbarOffset =
+        newActualScrollViewOffset - _minScrollOffset;
+    _isScrollOffsetOutOfRange = relativeScrollbarOffset < 0 ||
+        relativeScrollbarOffset > _maxScrollOffset!;
 
     _maybeUpdateControllers();
   }
@@ -431,11 +479,14 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
       !widget.alwaysShowThumb &&
       (!isScrollbarInValidState() ||
           ((_isScrollOffsetOutOfRange && widget.hideThumbWhenOutOfOffset) ||
-              (!_scrollController!.position.isScrollingNotifier.value && !_isDragging)));
+              (!_scrollController!.position.isScrollingNotifier.value &&
+                  !_isDragging)));
   bool _labelMustBeHidden() =>
       _thumbMustBeHidden() ||
-      (widget.labelBehaviour == LabelBehaviour.showOnlyWhileDragging && !_isDragging) ||
-      (widget.labelBehaviour == LabelBehaviour.showOnlyWhileAndAfterDragging && !_isThumbDraggedBeforeHide);
+      (widget.labelBehaviour == LabelBehaviour.showOnlyWhileDragging &&
+          !_isDragging) ||
+      (widget.labelBehaviour == LabelBehaviour.showOnlyWhileAndAfterDragging &&
+          !_isThumbDraggedBeforeHide);
 
   bool _trackMustBeHidden() {
     if (widget.trackBehavior == TrackBehavior.alwaysShow) {
@@ -446,7 +497,9 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
       return !_thumbMustBeHidden();
     }
 
-    return _thumbMustBeHidden() || (widget.trackBehavior == TrackBehavior.showOnlyWhileDragging && !_isDragging);
+    return _thumbMustBeHidden() ||
+        (widget.trackBehavior == TrackBehavior.showOnlyWhileDragging &&
+            !_isDragging);
   }
 
   bool isScrollbarInValidState() {
@@ -465,7 +518,8 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
     return Stack(
       children: [
         RepaintBoundary(child: widget.child),
-        MaterialStateBuilder(builder: (context, materialStates, addMaterialState, removeMaterialState) {
+        MaterialStateBuilder(builder:
+            (context, materialStates, addMaterialState, removeMaterialState) {
           return StreamBuilder(
               initialData: 0,
               stream: _actualScrollViewOffsetStreamController.stream,
@@ -473,7 +527,9 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
                 return Padding(
                   padding: widget.scrollbarPadding,
                   child: LayoutBuilder(builder: (context, constraints) {
-                    var constraintsMaxLength = isVerticalScroll ? constraints.maxHeight : constraints.maxWidth;
+                    var constraintsMaxLength = isVerticalScroll
+                        ? constraints.maxHeight
+                        : constraints.maxWidth;
                     if (_scrollbarZoneLength != constraintsMaxLength) {
                       _scrollbarZoneLength = constraintsMaxLength;
                       _maybeUpdateControllers();
@@ -487,19 +543,24 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
                           if (widget.trackBuilder != null)
                             ScrollbarPositionedWithAlign.fill(
                                 position: widget.scrollbarPosition,
-                                child: RepaintBoundary(child: Builder(builder: (context) {
+                                child: RepaintBoundary(
+                                    child: Builder(builder: (context) {
                                   final showHideAnimated = ShowHideAnimated(
                                       controller: _trackController,
-                                      animationDuration: widget.animationDuration,
+                                      animationDuration:
+                                          widget.animationDuration,
                                       animationCurve: widget.animationCurve,
-                                      builder: (context, animation) =>
-                                          widget.trackBuilder!(context, animation, materialStates));
+                                      builder: (context, animation) => widget
+                                              .trackBuilder!(
+                                          context, animation, materialStates));
 
-                                  if (widget.moveThumbOnTrackClick && _trackController.isShown) {
+                                  if (widget.moveThumbOnTrackClick &&
+                                      _trackController.isShown) {
                                     return GestureDetector(
                                       onTapUp: (details) {
                                         _isDragging = true;
-                                        _onTrackTappedOrDragged(details.localPosition);
+                                        _onTrackTappedOrDragged(
+                                            details.localPosition);
                                       },
                                       onTapCancel: () {
                                         _isDragging = false;
@@ -508,12 +569,14 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
                                       onVerticalDragStart: (details) {
                                         if (isVerticalScroll) {
                                           _isDragging = true;
-                                          _onTrackTappedOrDragged(details.localPosition);
+                                          _onTrackTappedOrDragged(
+                                              details.localPosition);
                                         }
                                       },
                                       onVerticalDragUpdate: (details) {
                                         if (isVerticalScroll) {
-                                          _onTrackTappedOrDragged(details.localPosition);
+                                          _onTrackTappedOrDragged(
+                                              details.localPosition);
                                         }
                                       },
                                       onVerticalDragCancel: () {
@@ -531,12 +594,14 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
                                       onHorizontalDragStart: (details) {
                                         if (!isVerticalScroll) {
                                           _isDragging = true;
-                                          _onTrackTappedOrDragged(details.localPosition);
+                                          _onTrackTappedOrDragged(
+                                              details.localPosition);
                                         }
                                       },
                                       onHorizontalDragUpdate: (details) {
                                         if (!isVerticalScroll) {
-                                          _onTrackTappedOrDragged(details.localPosition);
+                                          _onTrackTappedOrDragged(
+                                              details.localPosition);
                                         }
                                       },
                                       onHorizontalDragCancel: () {
@@ -565,16 +630,25 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
                                     child: ShowHideAnimated(
                                         controller: _labelController,
                                         animationCurve: widget.animationCurve,
-                                        animationDuration: widget.animationDuration,
-                                        builder: (context, animation) => Builder(builder: (context) {
-                                              _scheduleContextLengthCheck(context, (newLabelLength) {
-                                                if (newLabelLength != _labelLength) {
-                                                  _labelLength = newLabelLength ?? 0;
+                                        animationDuration:
+                                            widget.animationDuration,
+                                        builder: (context, animation) =>
+                                            Builder(builder: (context) {
+                                              _scheduleContextLengthCheck(
+                                                  context, (newLabelLength) {
+                                                if (newLabelLength !=
+                                                    _labelLength) {
+                                                  _labelLength =
+                                                      newLabelLength ?? 0;
                                                 }
                                               });
 
-                                              return widget.labelBuilder!(context, animation, materialStates,
-                                                  _actualScrollViewOffset, _precalculateIndex());
+                                              return widget.labelBuilder!(
+                                                  context,
+                                                  animation,
+                                                  materialStates,
+                                                  _actualScrollViewOffset,
+                                                  _precalculateIndex());
                                             })))),
                           ScrollbarPositionedWithAlign(
                               position: widget.scrollbarPosition,
@@ -584,26 +658,39 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
                                 controller: _thumbController,
                                 animationCurve: widget.animationCurve,
                                 animationDuration: widget.animationDuration,
-                                builder: (context, animation) => Builder(builder: (context) {
+                                builder: (context, animation) =>
+                                    Builder(builder: (context) {
                                   final thumb = Builder(builder: (context) {
-                                    _scheduleContextLengthCheck(context, (newThumbLength) {
+                                    _scheduleContextLengthCheck(context,
+                                        (newThumbLength) {
                                       if (newThumbLength != _thumbLength) {
                                         _thumbLength = newThumbLength ?? 0;
                                       }
                                     });
 
-                                    final double? dynamicLength = widget.dynamicThumbLength
-                                        ? (calculateDynamicThumbLength() ?? 0).clamp(widget.minDynamicThumbLength ?? 0,
-                                            widget.maxDynamicThumbLength ?? double.infinity)
+                                    final double? dynamicLength = widget
+                                            .dynamicThumbLength
+                                        ? (calculateDynamicThumbLength() ?? 0)
+                                            .clamp(
+                                                widget.minDynamicThumbLength ??
+                                                    0,
+                                                widget.maxDynamicThumbLength ??
+                                                    double.infinity)
                                         : null;
 
                                     return SizedBox(
-                                        height: isVerticalScroll ? dynamicLength : null,
-                                        width: !isVerticalScroll ? dynamicLength : null,
-                                        child: widget.thumbBuilder(context, animation, materialStates));
+                                        height: isVerticalScroll
+                                            ? dynamicLength
+                                            : null,
+                                        width: !isVerticalScroll
+                                            ? dynamicLength
+                                            : null,
+                                        child: widget.thumbBuilder(context,
+                                            animation, materialStates));
                                   });
 
-                                  if (!widget.isDraggable || !_thumbController.isShown) {
+                                  if (!widget.isDraggable ||
+                                      !_thumbController.isShown) {
                                     return IgnorePointer(child: thumb);
                                   }
 
@@ -632,7 +719,8 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
                                     },
                                     onVerticalDragEnd: (details) {
                                       if (isVerticalScroll) {
-                                        removeMaterialState(WidgetState.dragged);
+                                        removeMaterialState(
+                                            WidgetState.dragged);
 
                                         _isDragging = false;
                                         _maybeScheduleControllersUpdate();
@@ -640,7 +728,8 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
                                     },
                                     onVerticalDragCancel: () {
                                       if (isVerticalScroll) {
-                                        removeMaterialState(WidgetState.dragged);
+                                        removeMaterialState(
+                                            WidgetState.dragged);
 
                                         _isDragging = false;
                                         _maybeScheduleControllersUpdate();
@@ -661,7 +750,8 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
                                     },
                                     onHorizontalDragEnd: (details) {
                                       if (!isVerticalScroll) {
-                                        removeMaterialState(WidgetState.dragged);
+                                        removeMaterialState(
+                                            WidgetState.dragged);
 
                                         _isDragging = false;
                                         _maybeScheduleControllersUpdate();
@@ -669,21 +759,26 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
                                     },
                                     onHorizontalDragCancel: () {
                                       if (!isVerticalScroll) {
-                                        removeMaterialState(WidgetState.dragged);
+                                        removeMaterialState(
+                                            WidgetState.dragged);
 
                                         _isDragging = false;
                                         _maybeScheduleControllersUpdate();
                                       }
                                     },
                                     child: Builder(builder: (context) {
-                                      if (defaultTargetPlatform == TargetPlatform.android ||
-                                          defaultTargetPlatform == TargetPlatform.iOS) {
+                                      if (defaultTargetPlatform ==
+                                              TargetPlatform.android ||
+                                          defaultTargetPlatform ==
+                                              TargetPlatform.iOS) {
                                         return thumb;
                                       }
 
                                       return MouseRegion(
-                                          onHover: (_) => addMaterialState(WidgetState.hovered),
-                                          onExit: (_) => removeMaterialState(WidgetState.hovered),
+                                          onHover: (_) => addMaterialState(
+                                              WidgetState.hovered),
+                                          onExit: (_) => removeMaterialState(
+                                              WidgetState.hovered),
                                           child: thumb);
                                     }),
                                   );
@@ -714,9 +809,11 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
     );
   }
 
-  void _scheduleContextLengthCheck(BuildContext? context, void Function(double?) onGot) {
+  void _scheduleContextLengthCheck(
+      BuildContext? context, void Function(double?) onGot) {
     SchedulerBinding.instance.addPostFrameCallback((duration) {
-      var newLength = isVerticalScroll ? context?.size?.height : context?.size?.width;
+      var newLength =
+          isVerticalScroll ? context?.size?.height : context?.size?.width;
       onGot.call(newLength);
     });
   }
@@ -727,7 +824,8 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
 
     final relativeScrollbarOffset = _actualScrollViewOffset - _minScrollOffset;
     final double thumbOffset =
-        (relativeScrollbarOffset / scrollbarScrollRange * _thumbScrollRange).clamp(0, _thumbScrollRange);
+        (relativeScrollbarOffset / scrollbarScrollRange * _thumbScrollRange)
+            .clamp(0, _thumbScrollRange);
     return thumbOffset;
   }
 
@@ -752,7 +850,8 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
     if (!isScrollbarInValidState()) return null;
 
     final scrollbarScrollRange = _maxScrollOffset! - _minScrollOffset;
-    final screenLengthToScrollRange = _scrollController!.position.viewportDimension / scrollbarScrollRange;
+    final screenLengthToScrollRange =
+        _scrollController!.position.viewportDimension / scrollbarScrollRange;
     return screenLengthToScrollRange * _scrollbarZoneLength;
   }
 
@@ -762,7 +861,9 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
         return -1;
       }
 
-      return ((_actualScrollViewOffset - widget.itemPrecalculationOffset) / _fixedItemLength!).round();
+      return ((_actualScrollViewOffset - widget.itemPrecalculationOffset) /
+              _fixedItemLength!)
+          .round();
     }
 
     return null;
@@ -770,24 +871,32 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
 
   void _onThumbDragged(DragUpdateDetails details) {
     final newOffset = _addDragDeltaToOffset(
-        oldOffset: _actualScrollViewOffset, dragDelta: details.primaryDelta!, thumbScrollRange: _thumbScrollRange);
+        oldOffset: _actualScrollViewOffset,
+        dragDelta: details.primaryDelta!,
+        thumbScrollRange: _thumbScrollRange);
     _actualScrollViewOffset = newOffset;
 
     moveScrollViewToOffset(newOffset);
   }
 
   double _addDragDeltaToOffset(
-      {required double oldOffset, required double dragDelta, required double thumbScrollRange}) {
+      {required double oldOffset,
+      required double dragDelta,
+      required double thumbScrollRange}) {
     final absoluteDelta = dragDelta / thumbScrollRange;
     oldOffset = max(_minScrollOffset, oldOffset);
-    double newOffset = (oldOffset + (absoluteDelta * (_maxScrollOffset! - _minScrollOffset)))
-        .clamp(_minScrollOffset, _maxScrollOffset!);
+    double newOffset =
+        (oldOffset + (absoluteDelta * (_maxScrollOffset! - _minScrollOffset)))
+            .clamp(_minScrollOffset, _maxScrollOffset!);
     return newOffset;
   }
 
   void _onTrackTappedOrDragged(Offset position) {
-    final absoluteY = ((isVerticalScroll ? position.dy : position.dx) / _thumbScrollRange).clamp(0, 1);
-    final newOffset = (((_maxScrollOffset! - _minScrollOffset) * absoluteY) + _minScrollOffset)
+    final absoluteY =
+        ((isVerticalScroll ? position.dy : position.dx) / _thumbScrollRange)
+            .clamp(0, 1);
+    final newOffset = (((_maxScrollOffset! - _minScrollOffset) * absoluteY) +
+            _minScrollOffset)
         .clamp(_minScrollOffset, _maxScrollOffset!);
     _actualScrollViewOffset = newOffset;
 
@@ -797,9 +906,11 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
   void moveScrollViewToOffset(double newOffset) {
     if (widget.isFixedScroll && _fixedItemLength != null) {
       final closestTopItemOffset =
-          (newOffset ~/ _fixedItemLength!) * _fixedItemLength! + (_minScrollOffset % _fixedItemLength!);
+          (newOffset ~/ _fixedItemLength!) * _fixedItemLength! +
+              (_minScrollOffset % _fixedItemLength!);
       final closestBottomItemOffset =
-          (newOffset ~/ _fixedItemLength! + 1) * _fixedItemLength! + (_minScrollOffset % _fixedItemLength!);
+          (newOffset ~/ _fixedItemLength! + 1) * _fixedItemLength! +
+              (_minScrollOffset % _fixedItemLength!);
 
       if (closestTopItemOffset < _minScrollOffset) {
         _scrollController!.jumpTo(_minScrollOffset);
@@ -812,7 +923,8 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
       }
 
       final newScrollControllerOffset =
-          closest(newOffset, closestTopItemOffset, closestBottomItemOffset).clamp(_minScrollOffset, _maxScrollOffset!);
+          closest(newOffset, closestTopItemOffset, closestBottomItemOffset)
+              .clamp(_minScrollOffset, _maxScrollOffset!);
       _scrollController!.jumpTo(newScrollControllerOffset);
     } else {
       _scrollController!.jumpTo(_actualScrollViewOffset);

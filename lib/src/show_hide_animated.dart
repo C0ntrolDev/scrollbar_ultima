@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:scrollbar_ultima/scr/show_hide_animated_controller.dart';
 
-typedef ShowHideAnimatedBuilder = Widget Function(BuildContext context, Animation<double> animation);
-
+typedef ShowHideAnimatedBuilder = Widget Function(
+    BuildContext context, Animation<double> animation);
 
 class ShowHideAnimated extends StatefulWidget {
   final ShowHideAnimatedBuilder builder;
@@ -24,7 +24,8 @@ class ShowHideAnimated extends StatefulWidget {
   State<ShowHideAnimated> createState() => _ShowHideAnimatedState();
 }
 
-class _ShowHideAnimatedState extends State<ShowHideAnimated> with SingleTickerProviderStateMixin {
+class _ShowHideAnimatedState extends State<ShowHideAnimated>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
   StreamSubscription? _isShownStreamSubscription;
@@ -41,7 +42,8 @@ class _ShowHideAnimatedState extends State<ShowHideAnimated> with SingleTickerPr
   void didUpdateWidget(covariant ShowHideAnimated oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.animationCurve != widget.animationCurve || oldWidget.animationDuration != widget.animationDuration) {
+    if (oldWidget.animationCurve != widget.animationCurve ||
+        oldWidget.animationDuration != widget.animationDuration) {
       _createAnimations(widget.animationDuration, widget.animationCurve);
     }
     if (oldWidget.controller != widget.controller) {
@@ -71,15 +73,18 @@ class _ShowHideAnimatedState extends State<ShowHideAnimated> with SingleTickerPr
     ));
   }
 
-  void _onThumbWithLabelControllerChanged(ShowHideAnimatedController controller) {
+  void _onThumbWithLabelControllerChanged(
+      ShowHideAnimatedController controller) {
     _unsubscribeFromShowHideAnimatedController();
     _subscribeToShowHideAnimatedController(controller);
 
     _onIsShownChanged(controller.isShown);
   }
 
-  void _subscribeToShowHideAnimatedController(ShowHideAnimatedController controller) {
-    _isShownStreamSubscription = controller.isShownStream.listen(_onIsShownChanged);
+  void _subscribeToShowHideAnimatedController(
+      ShowHideAnimatedController controller) {
+    _isShownStreamSubscription =
+        controller.isShownStream.listen(_onIsShownChanged);
   }
 
   void _unsubscribeFromShowHideAnimatedController() {

@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:scrollbar_ultima/scr/scrollbar_position.dart';
 
-Widget createDeffaultThumb(BuildContext context, Animation<double> thumbAnimation, Set<WidgetState> widgetStates,
-    Color backgroundColor, double thickness, double? length, ScrollbarPosition scrollbarPosition) {
-  final thumbOffsetAnimation = Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(thumbAnimation);
+Widget createDeffaultThumb(
+    BuildContext context,
+    Animation<double> thumbAnimation,
+    Set<WidgetState> widgetStates,
+    Color backgroundColor,
+    double thickness,
+    double? length,
+    ScrollbarPosition scrollbarPosition) {
+  final thumbOffsetAnimation =
+      Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero)
+          .animate(thumbAnimation);
 
   final thumbColor = Theme.of(context).scrollbarTheme.thumbColor ??
       WidgetStateProperty.resolveWith<Color>((states) {
-        if (states.contains(WidgetState.dragged) || states.contains(WidgetState.pressed)) {
+        if (states.contains(WidgetState.dragged) ||
+            states.contains(WidgetState.pressed)) {
           return backgroundColor.withOpacity(0.6);
         }
 
@@ -18,7 +27,8 @@ Widget createDeffaultThumb(BuildContext context, Animation<double> thumbAnimatio
         return backgroundColor.withOpacity(0.3);
       });
 
-  final isVertical = scrollbarPosition == ScrollbarPosition.left || scrollbarPosition == ScrollbarPosition.right;
+  final isVertical = scrollbarPosition == ScrollbarPosition.left ||
+      scrollbarPosition == ScrollbarPosition.right;
 
   return SlideTransition(
       position: thumbOffsetAnimation,
@@ -40,7 +50,8 @@ Widget createSemicircleThumb(
     required double crossAxisSize,
     required double mainAxisSize,
     required ScrollbarPosition scrollbarPosition}) {
-  final isVertical = scrollbarPosition == ScrollbarPosition.left || scrollbarPosition == ScrollbarPosition.right;
+  final isVertical = scrollbarPosition == ScrollbarPosition.left ||
+      scrollbarPosition == ScrollbarPosition.right;
 
   return FadeTransition(
     opacity: thumbAnimation,
@@ -49,12 +60,15 @@ Widget createSemicircleThumb(
       child: Material(
         elevation: elevation,
         color: backgroundColor,
-        borderRadius: _getSemicircleThumbBorderRadius(scrollbarPosition, mainAxisSize, crossAxisSize),
+        borderRadius: _getSemicircleThumbBorderRadius(
+            scrollbarPosition, mainAxisSize, crossAxisSize),
         child: Container(
-          constraints: BoxConstraints.tight(
-              Size(isVertical ? crossAxisSize : mainAxisSize, isVertical ? mainAxisSize : crossAxisSize)),
+          constraints: BoxConstraints.tight(Size(
+              isVertical ? crossAxisSize : mainAxisSize,
+              isVertical ? mainAxisSize : crossAxisSize)),
           child: Padding(
-            padding: _getSemicircleThumbPaintPadding(scrollbarPosition, mainAxisSize, crossAxisSize),
+            padding: _getSemicircleThumbPaintPadding(
+                scrollbarPosition, mainAxisSize, crossAxisSize),
             child: RotatedBox(
               quarterTurns: isVertical ? 0 : 1,
               child: CustomPaint(
@@ -69,7 +83,9 @@ Widget createSemicircleThumb(
 }
 
 BorderRadius _getSemicircleThumbBorderRadius(
-    ScrollbarPosition scrollbarPosition, double mainAxisSize, double crossAxisSize) {
+    ScrollbarPosition scrollbarPosition,
+    double mainAxisSize,
+    double crossAxisSize) {
   final mainAxisRadius = Radius.circular(mainAxisSize / 2);
 
   Radius crossAxisRadius;
@@ -78,8 +94,8 @@ BorderRadius _getSemicircleThumbBorderRadius(
   } else if (crossAxisSize > mainAxisSize) {
     crossAxisRadius = mainAxisRadius;
   } else {
-    crossAxisRadius =
-        _calculateEllipticalRadius(mainAxisSize / 2, crossAxisSize - (mainAxisSize / 2), scrollbarPosition);
+    crossAxisRadius = _calculateEllipticalRadius(mainAxisSize / 2,
+        crossAxisSize - (mainAxisSize / 2), scrollbarPosition);
   }
 
   switch (scrollbarPosition) {
@@ -110,18 +126,20 @@ BorderRadius _getSemicircleThumbBorderRadius(
   }
 }
 
-Radius _calculateEllipticalRadius(double maxLength, double crossAxisRadius, ScrollbarPosition scrollbarPosition) {
+Radius _calculateEllipticalRadius(double maxLength, double crossAxisRadius,
+    ScrollbarPosition scrollbarPosition) {
   final cos = crossAxisRadius / maxLength;
   final sin = 1 - (cos * cos);
   final mainAxisRadius = (1 - sin) * maxLength;
 
-  final isVertical = scrollbarPosition == ScrollbarPosition.left || scrollbarPosition == ScrollbarPosition.right;
-  return Radius.elliptical(
-      isVertical ? crossAxisRadius : mainAxisRadius, isVertical ? mainAxisRadius : crossAxisRadius);
+  final isVertical = scrollbarPosition == ScrollbarPosition.left ||
+      scrollbarPosition == ScrollbarPosition.right;
+  return Radius.elliptical(isVertical ? crossAxisRadius : mainAxisRadius,
+      isVertical ? mainAxisRadius : crossAxisRadius);
 }
 
-EdgeInsets _getSemicircleThumbPaintPadding(
-    ScrollbarPosition scrollbarPosition, double mainAxisSize, double crossAxisSize) {
+EdgeInsets _getSemicircleThumbPaintPadding(ScrollbarPosition scrollbarPosition,
+    double mainAxisSize, double crossAxisSize) {
   double padding = 0;
   if (crossAxisSize < mainAxisSize && crossAxisSize > mainAxisSize / 2) {
     padding = ((mainAxisSize / 2) - (crossAxisSize - (mainAxisSize / 2))) / 2;
@@ -169,7 +187,8 @@ Widget createSemicircleLabel(
       ));
 }
 
-EdgeInsets _getSemicircleLabelPadding(double sidePadding, ScrollbarPosition scrollbarPosition) {
+EdgeInsets _getSemicircleLabelPadding(
+    double sidePadding, ScrollbarPosition scrollbarPosition) {
   switch (scrollbarPosition) {
     case ScrollbarPosition.top:
       return EdgeInsets.only(top: sidePadding);
@@ -215,8 +234,14 @@ class ArrowCustomPainter extends CustomPainter {
     final centerY = size.height / 2;
     final centerX = size.width / 2;
 
-    canvas.drawPath(_trianglePath(Offset(centerX - (width / 2), centerY - 2), width, height, true), paint);
-    canvas.drawPath(_trianglePath(Offset(centerX - (width / 2), centerY + 2), width, height, false), paint);
+    canvas.drawPath(
+        _trianglePath(
+            Offset(centerX - (width / 2), centerY - 2), width, height, true),
+        paint);
+    canvas.drawPath(
+        _trianglePath(
+            Offset(centerX - (width / 2), centerY + 2), width, height, false),
+        paint);
   }
 
   static Path _trianglePath(Offset o, double width, double height, bool isUp) {
