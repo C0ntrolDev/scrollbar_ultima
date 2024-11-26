@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scrollbar_ultima/scr/scrollbar_position.dart';
+import 'package:scrollbar_ultima/src/scrollbar_position.dart';
 
 Widget createDeffaultThumb(
     BuildContext context,

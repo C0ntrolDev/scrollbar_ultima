@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:scrollbar_ultima/scr/elements_behaviours.dart';
-import 'package:scrollbar_ultima/scr/material_state_builder.dart';
-import 'package:scrollbar_ultima/scr/scrollbar_position.dart';
-import 'package:scrollbar_ultima/scr/scrollbar_positioned_with_align.dart';
-import 'package:scrollbar_ultima/scr/scrollbars_builders.dart';
-import 'package:scrollbar_ultima/scr/show_hide_animated.dart';
-import 'package:scrollbar_ultima/scr/show_hide_animated_controller.dart';
+import 'package:scrollbar_ultima/src/elements_behaviours.dart';
+import 'package:scrollbar_ultima/src/material_state_builder.dart';
+import 'package:scrollbar_ultima/src/scrollbar_position.dart';
+import 'package:scrollbar_ultima/src/scrollbar_positioned_with_align.dart';
+import 'package:scrollbar_ultima/src/scrollbars_builders.dart';
+import 'package:scrollbar_ultima/src/show_hide_animated.dart';
+import 'package:scrollbar_ultima/src/show_hide_animated_controller.dart';
 
 /// A powerful Scrollbar that allows you to customize everything to your needs!
 class ScrollbarUltima extends StatefulWidget {

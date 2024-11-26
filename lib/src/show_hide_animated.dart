@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:scrollbar_ultima/scr/show_hide_animated_controller.dart';
+import 'package:scrollbar_ultima/src/show_hide_animated_controller.dart';
 
 typedef ShowHideAnimatedBuilder = Widget Function(
     BuildContext context, Animation<double> animation);
