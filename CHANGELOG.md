@@ -16,5 +16,5 @@
 
 ## 1.0.4
 
-- Changed scr to crc
+- Changed scr to src
 - Formated code to pass static analysis
