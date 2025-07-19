@@ -17,14 +17,14 @@ Widget createDeffaultThumb(
       WidgetStateProperty.resolveWith<Color>((states) {
         if (states.contains(WidgetState.dragged) ||
             states.contains(WidgetState.pressed)) {
-          return backgroundColor.withOpacity(0.6);
+          return backgroundColor.withValues(alpha: 0.6);
         }
 
         if (states.contains(WidgetState.hovered)) {
-          return backgroundColor.withOpacity(0.5);
+          return backgroundColor.withValues(alpha: 0.5);
         }
 
-        return backgroundColor.withOpacity(0.3);
+        return backgroundColor.withValues(alpha: 0.3);
       });
 
   final isVertical = scrollbarPosition == ScrollbarPosition.left ||
