@@ -511,8 +511,8 @@ class ScrollbarUltimaState extends State<ScrollbarUltima> with TickerProviderSta
                                       onVerticalDragEnd: (details) => _onTrackDragEnd(true),
                                       onHorizontalDragStart: (details) => _onTrackDragStart(false, details),
                                       onHorizontalDragUpdate: (details) => _onTrackDragUpdate(false, details),
-                                      onHorizontalDragCancel: () => _onTrackDragEnd(true),
-                                      onHorizontalDragEnd: (details) => _onTrackDragEnd(true),
+                                      onHorizontalDragCancel: () => _onTrackDragEnd(false),
+                                      onHorizontalDragEnd: (details) => _onTrackDragEnd(false),
                                       child: showHideAnimated,
                                     );
                                   }
